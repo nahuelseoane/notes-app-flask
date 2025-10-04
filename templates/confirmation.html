@@ -8,7 +8,10 @@
 <body>
     <h1>Note confirmation</h1>
     <p>The note:</p>
-    {{ note }}
-    <p>Was successfullys created</p>
+    {{ note[title] }}
+    {{ note[content] }}
+    <p>Was successfully created</p>
+    <br>
+    <button onclick="window.location.href='{{ url_for('home') }}'">Home</button>
 </body>
 </html>
