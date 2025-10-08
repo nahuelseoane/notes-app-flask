@@ -6,11 +6,19 @@
     <title>Note confirmation</title>
 </head>
 <body>
-    <h1>Note confirmation</h1>
-    <p>The note:</p>
-    {{ note[title] }}
-    {{ note[content] }}
-    <p>Was successfully created</p>
+    {% if action == "created" %}
+        <h1>✅ Note created successfully!</h1>
+    {% elif action == "updated" %}
+        <h1>✏️ Note updated successfully!</h1>
+    {% else %}
+        <h1>💾 Note saved!</h1>
+    {% endif %}
+
+    <h2>{{ note.title }}</h2>
+    <p>{{ note.content }}</p>
+    <small>Created: {{ note.created_at.strftime('%Y-%m-%d %H:%M') }}</small><br>
+    <small>Updated: {{ note.updated_at.strftime('%Y-%m-%d %H:%M') }}</small>
+
     <br>
     <button onclick="window.location.href='{{ url_for('home') }}'">Home</button>
 </body>
