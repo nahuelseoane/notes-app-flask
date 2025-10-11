@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}App Notes{% endblock title %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap">
+</head>
+
+
+<body class="min-h-screen flex flex-col">
+
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-sm py-4">
+        <div class="container mx-auto flex justify-between items-center px-4">
+            <a href="{{ url_for('notes.notes_home' ) }}" class="tex-xl font-bold text-gray-800">App Notes</a>
+            <a href="{{ url_for('notes.create_note') }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Create note</a>
+        </div>
+    </nav>
+
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=True) %}
+    {% if messages %}
+    <div class="container mx-auto my-4 px-4">
+        {% for category, message in messages %}
+        <div class="p-3 mb-2 rounded-lg {% if category == 'success' %}bg-green-100 text-green-800{% elif cateogry == 'error' %}bg-red-100 text-red-800{% elif category == 'warning' %}bg-yellow-100 text-yellow-800{% else %} bg-blue-100 text-blue-800{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% endwith %}
+
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto py-6 px-4">
+    {% block content %}{% endblock content%}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white shadow-inner text-center flex justify-around p-4 mt-6 text-sm text-gray-500 hight-200">
+        <a href="https://jnahuel.com" class="text-blue-500 hover:underline">My site</a>
+        <a href="https://linkedin.com/in/nahuel-seoane" class="text-blue-500 hover:underline">Me</a> 
+        <a href="https://github.com/nahuelseoane" class="text-blue-500 hover:underline">My Github</a>
+    </footer>
+</body>
+</html>

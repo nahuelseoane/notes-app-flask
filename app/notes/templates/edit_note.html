@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-md">
+    <h1 class="tex-xl font-bold text-gray-800 mb-4">Edit Note</h1>
+
+    <form method="POST" class="space-y-4">
+        <div>
+            <label for="title" class="block text-gray-700 font-medium mb-1">Title:</label>
+            <input type="text" name="title" id="title" value="{{note.title}}" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+        
+        <div>
+            <label for="content">Note:</label>
+            <input type="text" name="content" id="content" value="{{ note.content }}" class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+
+        <div class="flex justify-end mt-4 space-x-2">
+            <a href="{{ url_for('notes.notes_home') }}" class="px-4 py-2 bg-gray-300 text-gray-800 rounded font-medium hover:bg-gray-400 transition inline-flex items-center justify-center">Cancel</a>
+            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded font-medium hover:bg-blue-600 transition inline-flex items-center justify-center">Update</button>
+        </div>
+    </form>
+</div>
+{% endblock content %}
