@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+*.pyc
+notes.sqlite
+test_notes.db

@@ -1,7 +1,7 @@
 import unittest
 
 from app import create_app
-from .models import db, Note, User
+from ..models import db, Note, User
 from werkzeug.security import generate_password_hash
 
 class NoteTests(unittest.TestCase):
