@@ -9,7 +9,7 @@ notes_bp = Blueprint("notes", __name__, template_folder="templates")
 def notes_home():
     print("Current user:", current_user)
     print("Is authenticated:", current_user.is_authenticated)
-    notes = Note.query.all()
+    notes = Note.query.filter_by(user_id=current_user.id).order_by(Note.created_at.desc()).all()
     return render_template("home.html", notes=notes)
 
 
@@ -20,16 +20,8 @@ def create_note():
         title = request.form.get("title", "Not found")
         content = request.form.get("content", "Not found")
 
-        if not len(title.strip()) > 10:
-            flash("The title is too short, minimum 10", "error")
-            return render_template("note_form.html")
-
-        if not len(content.strip()) > 300:
-            flash("The title is too short, minimum 300", "error")
-            return render_template("note_form.html")
-
         note_db = Note(
-            title=title, content=content
+            title=title, content=content, user_id=current_user.id
         )
 
         db.session.add(note_db)
@@ -43,6 +35,9 @@ def create_note():
 @login_required
 def edit_note(id):
     note= Note.query.get_or_404(id)
+    if note.user_id != current_user.id:
+        flash("You don't have permission to edit this note.", "error")
+        return redirect(url_for("notes.notes_home"))
     if request.method == "POST":
         title = request.form.get("title", "")
         content = request.form.get("content", "")
@@ -58,6 +53,9 @@ def edit_note(id):
 @notes_bp.route('/delete-note/<int:id>', methods=["GET", "POST"])
 def delete_note(id):
     note = Note.query.get_or_404(id)
+    if note.user_id != current_user.id:
+        flash("You don't have permission to edit this note.", "error")
+        return redirect(url_for("notes.notes_home"))
     db.session.delete(note)
     db.session.commit()
     return redirect(
