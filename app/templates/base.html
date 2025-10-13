@@ -16,8 +16,12 @@
     <nav class="bg-white shadow-sm py-4">
         <div class="container mx-auto flex justify-between items-center px-4">
             <a href="{{ url_for('notes.notes_home' ) }}" class="tex-xl font-bold text-gray-800">App Notes</a>
-            <a href="{{ url_for('notes.create_note') }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Create note</a>
-            <a href="{{ url_for('auth.logout') }}" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</a>
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('notes.create_note') }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Create note</a>
+                <a href="{{ url_for('auth.logout') }}" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</a>
+            {% else %}
+                <a href="{{ url_for('auth.login') }}" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Login</a>
+            {% endif %}
         </div>
     </nav>
 

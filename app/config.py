@@ -13,3 +13,4 @@ class Config:
     SECRET_KEY = "this-is-not-secret-but-stable"
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = "Lax"
+    WTF_CSRF_ENABLED = True
