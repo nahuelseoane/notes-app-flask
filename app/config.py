@@ -10,4 +10,6 @@ DB_FILE_PATH = os.path.join(
 class Config:
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{DB_FILE_PATH}"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = "this-is-not-secret"
+    SECRET_KEY = "this-is-not-secret-but-stable"
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = "Lax"

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}
+    Register
+{% endblock title %}
+
+{% block content %}
+<div class="flex justify-center items-center min-h-screen bg-gray-100">
+  <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-sm">
+    <h1 class="text-xl font-bold text-gray-800 mb-4">Register</h1>
+
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <p class="text-sm text-red-500 mb-2">{{ message }}</p>
+    {% endfor %}
+
+    <form method="POST" class="space-y-4">
+      <div>
+        <label for="username" class="block text-gray-700 font-medium mb-1">Username</label>
+        <input type="text" name="username" class="w-full border rounded px-3 py-2" required>
+      </div>
+
+      <div>
+        <label for="password" class="block text-gray-700 font-medium mb-1">Password</label>
+        <input type="password" name="password" class="w-full border rounded px-3 py-2" required>
+      </div>
+
+      <button class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 transition">Register</button>
+    </form>
+
+  </div>
+</div>
+{% endblock %}

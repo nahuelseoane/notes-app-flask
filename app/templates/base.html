@@ -9,7 +9,7 @@
 </head>
 
 
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col bg-gray-50">
 
 
     <!-- Navbar -->
@@ -17,6 +17,7 @@
         <div class="container mx-auto flex justify-between items-center px-4">
             <a href="{{ url_for('notes.notes_home' ) }}" class="tex-xl font-bold text-gray-800">App Notes</a>
             <a href="{{ url_for('notes.create_note') }}" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Create note</a>
+            <a href="{{ url_for('auth.logout') }}" class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">Logout</a>
         </div>
     </nav>
 
@@ -26,7 +27,7 @@
     {% if messages %}
     <div class="container mx-auto my-4 px-4">
         {% for category, message in messages %}
-        <div class="p-3 mb-2 rounded-lg {% if category == 'success' %}bg-green-100 text-green-800{% elif cateogry == 'error' %}bg-red-100 text-red-800{% elif category == 'warning' %}bg-yellow-100 text-yellow-800{% else %} bg-blue-100 text-blue-800{% endif %}">
+        <div class="p-3 mb-2 rounded-lg {% if category == 'success' %}bg-green-100 text-green-800{% elif category == 'error' %}bg-red-100 text-red-800{% elif category == 'warning' %}bg-yellow-100 text-yellow-800{% else %} bg-blue-100 text-blue-800{% endif %}">
             {{ message }}
         </div>
         {% endfor %}

@@ -1,24 +1,20 @@
 from flask import redirect, url_for, render_template, request, Blueprint, flash
+from flask_login import login_required, current_user
 from app.models import Note, db
 
 notes_bp = Blueprint("notes", __name__, template_folder="templates")
 
 @notes_bp.route("/")
+@login_required
 def notes_home():
+    print("Current user:", current_user)
+    print("Is authenticated:", current_user.is_authenticated)
     notes = Note.query.all()
     return render_template("home.html", notes=notes)
-    
-
-# @notes_bp.route("/confirmation")
-# def confirmation():
-#     note_id = request.args.get("note_id", type=int)
-#     action = request.args.get("action", "saved")
-
-#     note = Note.query.get_or_404(note_id)
-#     return render_template("confirmation.html", note=note, action=action)
 
 
 @notes_bp.route("/create-note", methods=['GET', 'POST'])
+@login_required
 def create_note():
     if request.method == 'POST':
         title = request.form.get("title", "Not found")
@@ -32,13 +28,11 @@ def create_note():
         db.session.commit()
         flash("Note created", "success")
         return redirect(url_for("notes.notes_home"))
-        # return redirect(
-        #     url_for("notes.confirmation", note_id=note_db.id, action="created")
-        # )
     return render_template("note_form.html")
 
 
 @notes_bp.route('/edit-note/<int:id>', methods=["GET", "POST"])
+@login_required
 def edit_note(id):
     note= Note.query.get_or_404(id)
     if request.method == "POST":
