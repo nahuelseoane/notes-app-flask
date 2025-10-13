@@ -5,6 +5,10 @@ DB_FILE_PATH = os.path.join(
     BASE_DIR,
     "notes.sqlite"
 )
+DB_TEST_PATH = os.path.join(
+    BASE_DIR,
+    "test_notes.db"
+)
 
 
 class Config:
@@ -14,3 +18,13 @@ class Config:
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SAMESITE = "Lax"
     WTF_CSRF_ENABLED = True
+
+
+class TestConfig:
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{DB_TEST_PATH}"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = "this-is-not-secret-but-stable"
+    SESSION_COOKIE_HTTPONLY = True
+    SESSION_COOKIE_SAMESITE = "Lax"
+    WTF_CSRF_ENABLED = False
+    TESTING = True
